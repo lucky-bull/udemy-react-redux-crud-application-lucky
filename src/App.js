@@ -1,27 +1,19 @@
 import React from "react";
-
-// function App() {
-//   return(
-//     <React.Fragment>
-//       <label htmlFor="bar">aaa</label>
-//       <input type="text" onChange={() => {console.log('change')}}></input>
-//     </React.Fragment>
-//   )
-// }
+import PropTypes from "prop-types";
+/*
+ * propertyに対する型のチェックを定義する方法について
+ */
 
 const App = () => {
-  // 一括で変数で管理して、mapで回しながら表示
-  // ユニークキー どのdomが変更になったのかを管理してるから。必要最低限のdomの範囲をみている。
-  // index を入れるのが最良
   const profiles = [
     { name: "Taro", age: 10 },
     { name: "miki", age: 27 },
-    { name: "NoName" },
+    { name: "NoName", age: 3 },
   ];
   return (
     <div>
       {profiles.map((profile, index) => {
-        return <User name={profile.name} key={index} />;
+        return <User name={profile.name} age={profile.age} key={index} />;
       })}
     </div>
   );
@@ -35,8 +27,10 @@ const User = (props) => {
   );
 };
 
-User.defaultProps = {
-  age: 1,
+// isRequired: 属性が設定されていないとだめ
+User.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired,
 };
 
 export default App;
